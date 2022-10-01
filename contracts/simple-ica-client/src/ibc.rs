@@ -6,11 +6,9 @@ use cosmwasm_std::{
     IbcPacketReceiveMsg, IbcPacketTimeoutMsg, IbcReceiveResponse, StdResult,
 };
 
-use simple_ica::client_ibc_msg::{
-    PacketMsg,
-};
+use simple_ica::client_ibc_msg::PacketMsg;
 use simple_ica::{
-    check_order, check_version, ReceiveIcaResponseMsg, StdAck, WhoAmIResponse, BalancesResponse
+    check_order, check_version, BalancesResponse, ReceiveIcaResponseMsg, StdAck, WhoAmIResponse,
 };
 
 use crate::error::ContractError;
@@ -377,11 +375,12 @@ mod tests {
         who_am_i_response(deps.as_mut(), channel_id, remote_addr);
 
         // try to dispatch a message
-        let msgs_to_dispatch: std::vec::Vec<CosmosMsg<client_osmo_bindings::OsmosisMsg>> = vec![BankMsg::Send {
-            to_address: "my-friend".into(),
-            amount: coins(123456789, "uatom"),
-        }
-        .into()];
+        let msgs_to_dispatch: std::vec::Vec<CosmosMsg<client_osmo_bindings::OsmosisMsg>> =
+            vec![BankMsg::Send {
+                to_address: "my-friend".into(),
+                amount: coins(123456789, "uatom"),
+            }
+            .into()];
         let handle_msg = ExecuteMsg::SendMsgs {
             channel_id: channel_id.into(),
             msgs: msgs_to_dispatch,

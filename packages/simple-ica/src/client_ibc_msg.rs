@@ -1,8 +1,8 @@
-use cosmwasm_std::{from_slice, to_binary, Binary, Coin, CosmosMsg, Empty, QueryRequest};
+use cosmwasm_std::{CosmosMsg, QueryRequest};
 use schemars::JsonSchema;
-use serde::de::DeserializeOwned;
+
+use client_osmo_bindings::{OsmosisMsg, OsmosisQuery};
 use serde::{Deserialize, Serialize};
-use osmo_bindings::{OsmosisMsg, OsmosisQuery};
 
 /// This is the message we send over the IBC channel
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]

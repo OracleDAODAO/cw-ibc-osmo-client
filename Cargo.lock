@@ -678,6 +678,7 @@ dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
  "osmo-bindings 0.5.1",
+ "osmo-bindings 0.6.0",
  "schemars",
  "serde",
  "thiserror",

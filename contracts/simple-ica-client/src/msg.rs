@@ -1,4 +1,4 @@
-use cosmwasm_std::{Coin, CosmosMsg, Empty, QueryRequest, Timestamp};
+use cosmwasm_std::{Coin, CosmosMsg, QueryRequest, Timestamp};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 use simple_ica::StdAck;

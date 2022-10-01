@@ -7,12 +7,11 @@ use cosmwasm_std::{
     SubMsg, SystemResult, WasmMsg,
 };
 use cw_utils::parse_reply_instantiate_data;
+use osmo_bindings::{OsmosisMsg, OsmosisQuery};
 use simple_ica::{
     check_order, check_version, BalancesResponse, DispatchResponse, IbcQueryResponse, PacketMsg,
     StdAck, WhoAmIResponse, IBC_APP_VERSION,
 };
-use osmo_bindings::{OsmosisMsg, OsmosisQuery};
-
 
 use crate::error::ContractError;
 use crate::msg::{
@@ -555,7 +554,7 @@ mod tests {
             assert_eq!(account, contract_addr.as_str());
             assert_eq!(0, funds.len());
             // parse the message - should callback with proper channel_id
-            let rmsg: cw1_whitelist::msg::ExecuteMsg = from_slice(msg).unwrap();
+            let _rmsg: cw1_whitelist::msg::ExecuteMsg = from_slice(msg).unwrap();
             // assert_eq!(
             //     rmsg,
             //     cw1_whitelist::msg::ExecuteMsg::Execute {

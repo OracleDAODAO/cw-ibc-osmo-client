@@ -1,7 +1,7 @@
 #[cfg(not(feature = "library"))]
 use cosmwasm_std::entry_point;
 use cosmwasm_std::{
-    to_binary, CosmosMsg, Deps, DepsMut, Empty, Env, IbcMsg, MessageInfo, Order, QueryRequest,
+    to_binary, CosmosMsg, Deps, DepsMut, Env, IbcMsg, MessageInfo, Order, QueryRequest,
     QueryResponse, Response, StdError, StdResult,
 };
 
