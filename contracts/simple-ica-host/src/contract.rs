@@ -9,9 +9,11 @@ use cosmwasm_std::{
 use cw_utils::parse_reply_instantiate_data;
 use osmo_bindings::{OsmosisMsg, OsmosisQuery};
 use simple_ica::{
-    check_order, check_version, BalancesResponse, DispatchResponse, IbcQueryResponse, PacketMsg,
+    check_order, check_version, BalancesResponse, DispatchResponse, IbcQueryResponse,
     StdAck, WhoAmIResponse, IBC_APP_VERSION,
 };
+
+use simple_ica::host_ibc_msg::PacketMsg;
 
 use crate::error::ContractError;
 use crate::msg::{

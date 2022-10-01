@@ -8,8 +8,11 @@ use cosmwasm_std::IbcOrder;
 pub use crate::callback::ReceiveIcaResponseMsg;
 pub use crate::checks::{check_order, check_version, SimpleIcaError};
 pub use crate::ibc_msg::{
-    BalancesResponse, DispatchResponse, IbcQueryResponse, PacketMsg, StdAck, WhoAmIResponse,
+    BalancesResponse, DispatchResponse, IbcQueryResponse, StdAck, WhoAmIResponse,
 };
+
+#[cfg(feature = "host")]
+pub mod host_ibc_msg;
 
 pub const IBC_APP_VERSION: &str = "simple-ica-v2";
 pub const APP_ORDER: IbcOrder = IbcOrder::Unordered;

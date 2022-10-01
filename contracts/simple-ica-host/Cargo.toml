@@ -28,7 +28,7 @@ overflow-checks = true
 backtraces = ["cosmwasm-std/backtraces"]
 
 [dependencies]
-simple-ica = { version = "0.2.0", path = "../../packages/simple-ica"}
+simple-ica = { version = "0.2.0", path = "../../packages/simple-ica", features = ["host"]}
 cosmwasm-std = { version = "1.0.0", features = ["iterator", "ibc3"] }
 cw-storage-plus = { version = "0.14.0" }
 cw-utils = { version = "0.14.0" }

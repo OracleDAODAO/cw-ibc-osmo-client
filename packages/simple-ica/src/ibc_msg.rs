@@ -1,26 +1,7 @@
 use cosmwasm_std::{from_slice, to_binary, Binary, Coin, CosmosMsg, QueryRequest};
-use osmo_bindings::{OsmosisMsg, OsmosisQuery};
 use schemars::JsonSchema;
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
-
-/// This is the message we send over the IBC channel
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-#[serde(rename_all = "snake_case")]
-pub enum PacketMsg {
-    Dispatch {
-        sender: String,
-        msgs: Vec<CosmosMsg<OsmosisMsg>>,
-        callback_id: Option<String>,
-    },
-    IbcQuery {
-        sender: String,
-        msgs: Vec<QueryRequest<OsmosisQuery>>,
-        callback_id: Option<String>,
-    },
-    WhoAmI {},
-    Balances {},
-}
 
 /// This is a generic ICS acknowledgement format.
 /// Proto defined here: https://github.com/cosmos/cosmos-sdk/blob/v0.42.0/proto/ibc/core/channel/v1/channel.proto#L141-L147

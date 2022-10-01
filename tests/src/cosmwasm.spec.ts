@@ -35,7 +35,7 @@ test.before(async (t) => {
   console.debug("Upload contracts to wasmd...");
   const wasmContracts = {
     callback: "./internal/callback_capturer.wasm",
-    controller: "./internal/simple_ica_controller.wasm",
+    controller: "./internal/simple_ica_client.wasm",
   };
   const wasmSign = await setupWasmClient();
   wasmIds = await setupContracts(wasmSign, wasmContracts);
