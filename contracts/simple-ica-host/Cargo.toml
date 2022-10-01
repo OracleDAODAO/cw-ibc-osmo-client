@@ -36,6 +36,7 @@ cw1-whitelist = { version = "0.14.0", features = ["library"]}
 schemars = "0.8.1"
 serde = { version = "1.0.103", default-features = false, features = ["derive"] }
 thiserror = { version = "1.0.23" }
+osmo-bindings = "0.5.1"
 
 [dev-dependencies]
 cosmwasm-schema = { version = "1.0.0" }

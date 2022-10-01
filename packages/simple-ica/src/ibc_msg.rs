@@ -2,6 +2,7 @@ use cosmwasm_std::{from_slice, to_binary, Binary, Coin, CosmosMsg, Empty, QueryR
 use schemars::JsonSchema;
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
+use osmo_bindings::{OsmosisMsg, OsmosisQuery};
 
 /// This is the message we send over the IBC channel
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
@@ -9,12 +10,12 @@ use serde::{Deserialize, Serialize};
 pub enum PacketMsg {
     Dispatch {
         sender: String,
-        msgs: Vec<CosmosMsg>,
+        msgs: Vec<CosmosMsg<OsmosisMsg>>,
         callback_id: Option<String>,
     },
     IbcQuery {
         sender: String,
-        msgs: Vec<QueryRequest<Empty>>,
+        msgs: Vec<QueryRequest<OsmosisQuery>>,
         callback_id: Option<String>,
     },
     WhoAmI {},
