@@ -476,7 +476,7 @@ test.serial("test Osmosis Query", async (t) => {
   const { contractAddress: callbackAddr } = await wasmClient.sign.instantiate(
     wasmClient.senderAddress,
     wasmIds.callback,
-    { simple_ica_controller: wasmController },
+    { simple_ica_client: wasmController },
     "Callback #1",
     "auto"
   );
