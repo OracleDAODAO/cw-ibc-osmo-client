@@ -465,6 +465,64 @@ test.serial("query with callback", async (t) => {
   }
 });
 
+test.serial("test Osmosis Query", async (t) => {
+  const { wasmClient, wasmController, link, osmoClient } = await demoSetup();
+
+  // there is an initial packet to relay for the whoami run
+  let info = await link.relayAll();
+  assertPacketsFromA(info, 1, true);
+
+  // switch over to use the callback contract
+  const { contractAddress: callbackAddr } = await wasmClient.sign.instantiate(
+    wasmClient.senderAddress,
+    wasmIds.callback,
+    { simple_ica_controller: wasmController },
+    "Callback #1",
+    "auto"
+  );
+  const callback = new CallbackCapturerClient(wasmClient.sign, wasmClient.senderAddress, callbackAddr);
+
+  // and update the admin, so the callback contract can use the controller
+  await wasmClient.sign.execute(
+    wasmClient.senderAddress,
+    wasmController,
+    { update_admin: { admin: callbackAddr } },
+    "auto"
+  );
+
+  // get the account info
+  const accounts = await listAccounts(wasmClient, wasmController);
+  t.is(accounts.length, 1);
+  const { remote_addr: remoteAddr, channel_id: channelId } = accounts[0];
+  assert(remoteAddr);
+  assert(channelId);
+
+  // Use IBC queries to query account info from the remote contract
+  // Use IBC queries to query account info from the remote contract
+  const fullDenomQuery = [{ custom: { full_denom: { creator_addr: "etf", subdenom: "mtfs" } } }];
+
+  await callback.ibcQuery({ callbackId: "success", channelId, msgs: fullDenomQuery });
+
+  // relay this over
+  info = await link.relayAll();
+  assertPacketsFromA(info, 1, true);
+
+  // now query the latest query info stored
+  const denomStored = await wasmClient.sign.queryContractSmart(wasmController, {
+    latest_query_result: { channel_id: channelId },
+  });
+  const firstTime = denomStored.last_update_time;
+  t.truthy(firstTime);
+  assert(denomStored.response.result);
+  const storedSuccess = parseBinary(denomStored.response.result);
+  t.log(storedSuccess);
+  assert(storedSuccess.results);
+  t.is(storedSuccess.results.length, 1);
+  const storedDenom = parseBinary(storedSuccess.results[0]);
+  t.log(storedDenom);
+  // t.deepEqual(storedDenom, { amount: [initFunds] });
+});
+
 function isSuccess(ack: StdAck): ack is { result: Binary } {
   return (ack as { result: Binary }).result !== undefined;
 }
